@@ -1,21 +1,21 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const stripe = require("stripe");
+const {defineString} = require("firebase-functions/params");
 
 admin.initializeApp();
 
-// ATENÇÃO: Substitua pelos seus próprios valores!
-const stripeClient = new stripe(
-  "sk_test_SUA_CHAVE_SECRETA_DO_STRIPE_AQUI"
-);
-const webhookSecret = "whsec_SEU_SEGREDO_DE_WEBHOOK_AQUI";
+// MÉTODO MODERNO E SEGURO: As chaves são definidas como parâmetros
+const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
+const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 
 exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
+  const stripeClient = new stripe(stripeSecretKey.value());
   let event;
 
   try {
     const sig = req.headers["stripe-signature"];
-    event = stripeClient.webhooks.constructEvent(req.rawBody, sig, webhookSecret);
+    event = stripeClient.webhooks.constructEvent(req.rawBody, sig, stripeWebhookSecret.value());
   } catch (err) {
     console.error(`⚠️  Webhook signature verification failed.`, err.message);
     return res.sendStatus(400);
@@ -25,25 +25,19 @@ exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
   switch (event.type) {
     case "checkout.session.completed":
       const session = event.data.object;
-      const customerEmail = session.customer_email;
+      const userId = session.client_reference_id;
+
+      if (!userId) {
+        console.error("Erro: client_reference_id não encontrado na sessão do Stripe.");
+        return res.status(400).send("Erro: ID do usuário não encontrado.");
+      }
 
       try {
-        // Encontra o usuário no Firebase Authentication pelo email
-        const user = await admin.auth().getUserByEmail(customerEmail);
-        
-        // Atualiza o plano do usuário no Firestore para "pro"
-        const userDocRef = admin.firestore().collection("users").doc(user.uid);
-        await userDocRef.update({
-          plan: "pro",
-        });
-
-        console.log(`Plano do usuário ${customerEmail} (UID: ${user.uid}) atualizado para PRO.`);
-
+        const userDocRef = admin.firestore().collection("users").doc(userId);
+        await userDocRef.update({ plan: "pro" });
+        console.log(`Plano do usuário (UID: ${userId}) atualizado para PRO com sucesso.`);
       } catch (error) {
-        console.error(
-          `Erro ao encontrar ou atualizar usuário para o email ${customerEmail}:`,
-          error
-        );
+        console.error(`Erro ao atualizar usuário (UID: ${userId}):`, error);
         return res.status(500).send("Erro ao processar o webhook.");
       }
       break;

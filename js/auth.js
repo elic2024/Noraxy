@@ -39,17 +39,19 @@ document.addEventListener("DOMContentLoaded", function() {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
+
                 await setDoc(doc(db, "users", user.uid), {
                     name: name,
                     email: user.email,
-                    plan: plan, 
+                    plan: "plus", 
                     wantsMarketingEmails: document.getElementById('email-marketing')?.checked || false,
                     createdAt: serverTimestamp()
                 });
 
                 if (plan === 'pro') {
-                    // LINK DE PRODUÇÃO ATUALIZADO
-                    window.location.href = 'https://buy.stripe.com/aFaeVd2LV7GjgF5bce5ZC01';
+                    const proPaymentLink = 'https://buy.stripe.com/aFaeVd2LV7GjgF5bce5ZC01';
+                    const stripeUrlWithUser = `${proPaymentLink}?client_reference_id=${user.uid}`;
+                    window.location.href = stripeUrlWithUser;
                 } else {
                     window.location.href = 'dashboard.html';
                 }

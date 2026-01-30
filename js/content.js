@@ -1,10 +1,14 @@
 import { auth, db } from './firebase-config.js';
 import { doc, updateDoc, query, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
+// FUNÇÃO DE UPGRADE CORRIGIDA E SEGURA
 async function upgradePlan(user) {
     if (!user) return alert("Você precisa estar logado para subscrever.");
-    // Redireciona para o link de pagamento de produção
-    window.location.href = 'https://buy.stripe.com/aFaeVd2LV7GjgF5bce5ZC01';
+    
+    // Redireciona para o link de pagamento de produção, passando o ID do usuário
+    const proPaymentLink = 'https://buy.stripe.com/aFaeVd2LV7GjgF5bce5ZC01';
+    const stripeUrlWithUser = `${proPaymentLink}?client_reference_id=${user.uid}`;
+    window.location.href = stripeUrlWithUser;
 }
 
 async function sendGift(contentId, giftType) {
@@ -15,7 +19,6 @@ async function sendGift(contentId, giftType) {
     }
 
     const giftLinks = {
-        // LINKS DE PRODUÇÃO ATUALIZADOS
         'flor': 'https://buy.stripe.com/4gM8wP5Y7d0D4Wncgi5ZC02',
         'diamante': 'https://buy.stripe.com/bJe6oH0DNgcP3Sjcgi5ZC03',
         'coracao': 'https://buy.stripe.com/fZu28raen0dR1Kb1BE5ZC04'
@@ -48,7 +51,7 @@ function renderContentCards(element, contentsDocs, userPlan) {
             card.classList.add('content-card-pro');
         }
 
-        const imageUrl = content.coverImageUrl || 'https://via.placeholder.com/400x200.png?text=NORAX';
+        const imageUrl = content.coverImageUrl || 'https://via.placeholder.com/400x200.png?text=NORAXY';
         const linkArea = document.createElement('a');
         linkArea.className = 'card-link-area';
         linkArea.innerHTML = `<img src="${imageUrl}" alt="${content.title}" class="card-cover-image"><div class="card-body"><h3>${content.title}</h3></div>`;
@@ -83,6 +86,7 @@ function renderContentCards(element, contentsDocs, userPlan) {
                 upgradeButton.textContent = "Subscrever Pro para Aceder";
                 upgradeButton.addEventListener('click', (e) => {
                     e.preventDefault();
+                    // CHamada à função corrigida
                     upgradePlan(auth.currentUser);
                 });
                 interactionsContainer.appendChild(upgradeButton);
