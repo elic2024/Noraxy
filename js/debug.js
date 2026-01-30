@@ -1,0 +1,1 @@
+// Este arquivo de diagnóstico pode ser apagado.

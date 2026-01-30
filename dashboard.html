@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - NORAXY</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/GOKedYH.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header-dashboard">
+        <div class="header-container">
+            <a href="index.html" class="logo">NORAXY</a>
+            <nav class="main-nav">
+                <a href="about.html">Sobre & Suporte</a>
+                <a href="#" id="logout-button">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="logged-in-view">
+        <section class="dashboard-banner">
+            <div class="banner-content">
+                <h1>Bem-vindo, <span id="name"></span>.</h1>
+                <p>Continue a sua jornada. Novos conteúdos esperam por si.</p>
+            </div>
+        </section>
+
+        <div id="content-section"><p>A carregar os seus conteúdos...</p></div>
+        <p class="coming-soon-message">novos conteúdos em breve</p>
+    </div>
+
+    <div id="unauthorized-view" style="display: none;">
+        <h1>Acesso Negado</h1>
+        <p>Você precisa estar logado para aceder a esta página.</p>
+        <a href="login.html">Ir para a página de Login</a>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@LUGARDESABIO" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@LUGARDESABIO" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-nav">
+                <a href="politica-de-privacidade.html">Política de Privacidade</a>
+                <a href="about.html">Suporte</a>
+            </div>
+            <p>&copy; 2024 NORAXY. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

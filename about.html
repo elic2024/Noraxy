@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre & Suporte - NORAXY</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/GOKedYH.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="form-page-body">
+    <header class="minimal-header">
+        <a href="index.html" class="logo">NORAXY</a>
+    </header>
+
+    <div class="static-page-container">
+        <h2 style="text-align: center;">O que é a NORAXY?</h2>
+        <p>A NORAXY é um espaço seguro e privado, dedicado àqueles que buscam aprofundar a sua jornada de autoconhecimento, maturidade emocional e inteligência nos relacionamentos. Longe do ruído das redes sociais, oferecemos um santuário de silêncio e reflexão.</p>
+        <p><b>Missão:</b> Oferecer ferramentas e conteúdos que promovam a reflexão profunda e o desenvolvimento de uma vida emocionalmente madura.</p>
+        
+        <hr style="margin: 40px 0; border-color: rgba(255,255,255,0.2);">
+
+        <h3 style="text-align: center;">Fale Connosco</h3>
+        <p style="text-align: center;">Tem alguma questão ou sugestão? Use o formulário abaixo.</p>
+        <form id="contact-form" action="https://formspree.io/f/mvzrgvyp" method="POST" style="margin-top: 20px;">
+            <input type="text" name="name" placeholder="Seu nome" required>
+            <input type="email" name="email" placeholder="Seu e-mail" required>
+            <textarea name="message" placeholder="Sua mensagem" rows="6" required></textarea>
+            <button type="submit" id="contact-form-button">Enviar Mensagem</button>
+            <p id="contact-form-status" style="margin-top: 15px; text-align: center;"></p>
+        </form>
+    </div>
+
+    <script type="module" src="js/about.js"></script>
+</body>
+</html>

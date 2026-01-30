@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NORAXY</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/GOKedYH.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="form-page-body">
+    <header class="minimal-header">
+        <a href="index.html" class="logo">NORAXY</a>
+    </header>
+
+    <div class="form-container">
+        <h1>Entrar na NORAXY</h1>
+        <div id="form-error" class="form-error-message"></div>
+        
+        <input type="email" id="email" placeholder="Seu e-mail">
+        <input type="password" id="password" placeholder="Sua senha">
+        <button id="login-button">Entrar</button>
+        
+        <div class="form-links">
+            <p><a href="forgot-password.html">Esqueceu-se da sua senha?</a></p>
+            <p>Ainda não tem conta? <a href="register-plus.html">Crie uma agora</a>.</p>
+        </div>
+    </div>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>
