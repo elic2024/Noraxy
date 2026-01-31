@@ -37,12 +37,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             contentTitleEl.textContent = content.title;
             
-            // SOLUÇÃO FINAL: Insere o seu HTML diretamente na página.
             contentBodyEl.innerHTML = content.description;
 
-            // Ativa o botão de partilha
-            shareButton.href = `partilha-view.html?id=${contentId}`;
-            shareButton.style.display = 'inline-block';
+            // --- LÓGICA DE PARTILHA CORRIGIDA ---
+            shareButton.style.display = 'inline-block'; // Torna o botão visível
+
+            shareButton.addEventListener('click', async (e) => {
+                e.preventDefault(); // Impede a navegação para o href="#"
+
+                const shareData = {
+                    title: content.title,
+                    text: `Um artigo imperdível da NORAXY: "${content.title}"`,
+                    url: `https://noraxy.netlify.app/partilha-view.html?id=${contentId}`
+                };
+
+                try {
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                    } else {
+                        navigator.clipboard.writeText(shareData.url);
+                        alert("Link de partilha copiado para a sua área de transferência!");
+                    }
+                } catch (err) {
+                    console.error("Erro ao partilhar:", err);
+                }
+            });
 
         } else {
             contentContainer.innerHTML = "<h1>Artigo não encontrado</h1><p>Este conteúdo pode ter sido removido.</p>";
