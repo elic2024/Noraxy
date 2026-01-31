@@ -2,13 +2,12 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-// VERSÃO FINAL E SEGURA
+// VERSÃO SIMPLIFICADA E SEGURA - BOTÃO DE PARTILHA REMOVIDO
 
 document.addEventListener("DOMContentLoaded", () => {
     const contentTitleEl = document.getElementById('content-title');
     const contentBodyEl = document.getElementById('content-body');
     const contentContainer = document.getElementById('content-container');
-    const shareButton = document.getElementById('share-button');
 
     const urlParams = new URLSearchParams(window.location.search);
     const contentId = urlParams.get('id');
@@ -54,17 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     localStorage.setItem('viewedArticles', JSON.stringify(viewedArticles));
                 }
 
-                // Ativa o botão de partilha
-                shareButton.style.display = 'inline-block';
-                shareButton.addEventListener('click', async (e) => {
-                    e.preventDefault();
-                    const shareData = { title: contentData.title, text: `Um artigo da NORAXY: "${contentData.title}"`, url: `https://noraxy.netlify.app/partilha-view.html?id=${contentId}` };
-                    try {
-                        if (navigator.share) await navigator.share(shareData);
-                        else { navigator.clipboard.writeText(shareData.url); alert("Link de partilha copiado!"); }
-                    } catch (err) { console.error("Erro ao partilhar:", err); }
-                });
-
             } else {
                 // O usuário NÃO tem permissão. Mostra a barreira de acesso.
                 contentTitleEl.textContent = "Acesso Exclusivo";
@@ -78,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
                 contentBodyEl.innerHTML = accessDeniedHTML;
-                shareButton.style.display = 'none';
             }
         } catch (error) {
             console.error("Erro ao carregar o conteúdo:", error);
