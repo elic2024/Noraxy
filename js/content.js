@@ -37,6 +37,8 @@ async function sendGift(contentId, giftType) {
 
 
 function renderContentCards(element, contentsDocs, userPlan) {
+    const viewedArticles = JSON.parse(localStorage.getItem('viewedArticles')) || [];
+
     element.innerHTML = '';
     for (const doc of contentsDocs) {
         const content = doc.data();
@@ -51,7 +53,14 @@ function renderContentCards(element, contentsDocs, userPlan) {
             card.classList.add('content-card-pro');
         }
 
-        const imageUrl = content.coverImageUrl || 'https://via.placeholder.com/400x200.png?text=NORAXY';
+        // LÓGICA DA ETIQUETA "NOVO"
+        if (!viewedArticles.includes(contentId)) {
+            const newBadge = document.createElement('div');
+            newBadge.className = 'new-badge';
+            card.appendChild(newBadge);
+        }
+
+        const imageUrl = content.coverImageUrl || 'https://via.placeholder.com/400x200.png?text=NORAX';
         const linkArea = document.createElement('a');
         linkArea.className = 'card-link-area';
         linkArea.innerHTML = `<img src="${imageUrl}" alt="${content.title}" class="card-cover-image"><div class="card-body"><h3>${content.title}</h3></div>`;
