@@ -3,21 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conteúdo - NORAXY</title>
+    <title>Artigo - NORAXY</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/GOKedYH.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="content-viewer-container">
-        <a href="dashboard.html" class="back-button">&larr; Voltar para todos os conteúdos</a>
-        <h1 id="content-title"></h1>
-        <hr>
+    <header class="main-header-dashboard">
+        <div class="header-container">
+            <a href="index.html" class="logo">NORAXY</a>
+            <nav class="main-nav">
+                <a href="dashboard.html">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content-viewer-container" id="content-container">
+        <h1 id="content-title">A carregar...</h1>
+        
+        <!-- BOTÃO DE PARTILHA ADICIONADO DIRETAMENTE AQUI -->
+        <div class="share-button-container">
+            <a href="#" id="share-button" class="btn-share" style="display: none;"> 
+                <i class="fas fa-share-square"></i> Partilhar este artigo
+            </a>
+        </div>
+
         <div id="content-body"></div>
     </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@LUGARDESABIO" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@LUGARDESABIO" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-nav">
+                <a href="politica-de-privacidade.html">Política de Privacidade</a>
+                <a href="about.html">Sobre & Suporte</a>
+            </div>
+            <p>&copy; 2024 NORAXY. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
     <script type="module" src="js/view-content.js"></script>
 </body>

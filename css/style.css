@@ -46,17 +46,14 @@ body {
 
 /* --- BANNER DA PÁGINA INICIAL --- */
 .main-banner { position: relative; color: var(--color-white); padding: 100px 20px; text-align: center; overflow: hidden; }
-/* Botão do canto removido, regras de estilo removidas */
 .banner-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease-in-out; z-index: 1; }
 .banner-image.active { opacity: 1; }
 .main-banner::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.5)); z-index: 2; }
 .banner-content { position: relative; z-index: 3; }
 .main-banner p { font-size: 1.4em; opacity: 0.9; max-width: 700px; margin: 15px auto; }
-
-/* NOVO ESTILO PARA O LINK DE LOGIN */
 .login-prompt {
     margin-top: 25px;
-    font-size: 1em !important; /* Força o tamanho da fonte */
+    font-size: 1em !important; 
     opacity: 0.9;
 }
 .login-prompt a {
@@ -66,7 +63,6 @@ body {
 .login-prompt a:hover {
     color: var(--color-highlight);
 }
-
 
 /* --- BANNER DO DASHBOARD --- */
 .dashboard-banner { background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.75)), url('https://i.imgur.com/bvjPDpF.jpeg'); background-size: cover; background-position: center; color: var(--color-white); padding: 60px 20px; text-align: center; }
@@ -81,6 +77,24 @@ body {
 .btn-primary:hover { background-color: var(--color-highlight-hover); border-color: var(--color-highlight-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 .btn-secondary { background-color: var(--color-white); border: 2px solid var(--color-highlight); color: var(--color-highlight); }
 .btn-secondary:hover { background-color: var(--color-highlight); color: var(--color-white); transform: translateY(-2px); border-color: var(--color-highlight); }
+
+/* BOTÃO DE PARTILHA */
+.share-button-container { text-align: center; margin: 20px 0; }
+.btn-share {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #25D366; /* Cor do WhatsApp */
+    color: var(--color-white);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.btn-share:hover {
+    background-color: #128C7E;
+    transform: scale(1.05);
+}
+.btn-share i { margin-right: 8px; }
 
 /* --- ESTILOS DE PÁGINAS DE FORMULÁRIO E ESTÁTICAS --- */
 .form-page-body { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.imgur.com/iZg0yu8.png'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; box-sizing: border-box; }
@@ -97,6 +111,18 @@ body {
 .form-page-body button { width: 100%; padding: 15px; border: none; border-radius: 8px; background-color: var(--color-accent-red); color: var(--color-white); font-size: 1.1em; font-weight: bold; font-family: var(--font-body); cursor: pointer; transition: all 0.3s ease; }
 .form-page-body button:hover { background-color: var(--color-accent-red-hover); box-shadow: 0 4px 15px rgba(0,0,0,0.2); transform: translateY(-2px); }
 .form-page-body .minimal-header .logo { color: var(--color-white); }
+
+/* --- PÁGINA DE PARTILHA --- */
+.share-page-container { background: rgba(17, 21, 25, 0.85); color: var(--color-white); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); max-width: 450px; width: 100%; padding: 0; border-radius: 16px; overflow: hidden; text-align: center; box-shadow: var(--shadow); }
+.share-card-image { width: 100%; height: 250px; object-fit: cover; display: block; }
+.share-card-body { padding: 30px; }
+.share-card-body h3 { margin: 0 0 10px; color: var(--color-white); font-size: 1.6em; }
+.share-card-body p { color: rgba(255, 255, 255, 0.8); margin-bottom: 25px; }
+.share-instructions { padding: 30px; background-color: rgba(0, 0, 0, 0.2); }
+.share-link-container { display: flex; margin-top: 15px; }
+#share-link-input { flex-grow: 1; background-color: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); color: var(--color-white); padding: 12px; border-radius: 8px 0 0 8px; font-size: 0.9em; border-right: none; }
+#share-link-input:focus { outline: none; }
+#copy-link-button { width: 50px; padding: 0; border: 1px solid rgba(255, 255, 255, 0.2); border-left: none; border-radius: 0 8px 8px 0; background-color: var(--color-highlight); font-size: 1.2em; cursor: pointer; }
 
 /* --- CONTEÚDO --- */
 #logged-in-view { padding: 0; text-align: center; max-width: none; margin: 0 auto; }

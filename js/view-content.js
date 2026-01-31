@@ -4,63 +4,58 @@ import { doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-f
 document.addEventListener("DOMContentLoaded", async () => {
     const contentTitleEl = document.getElementById('content-title');
     const contentBodyEl = document.getElementById('content-body');
+    const contentContainer = document.getElementById('content-container');
+    const shareButton = document.getElementById('share-button'); 
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const contentId = urlParams.get('id');
+
+    if (!contentId) {
+        contentContainer.innerHTML = "<h1>Artigo não encontrado</h1><p>O link que você seguiu parece estar quebrado.</p>";
+        return;
+    }
 
     try {
-        if (typeof showdown === 'undefined') {
-            throw new Error("A biblioteca de conversão (Showdown) não pôde ser carregada.");
-        }
+        const docRef = doc(db, "contents", contentId);
+        const docSnap = await getDoc(docRef);
 
-        const params = new URLSearchParams(window.location.search);
-        const contentId = params.get('id');
+        if (docSnap.exists()) {
+            const content = docSnap.data();
 
-        if (!contentId) {
-            throw new Error("Nenhum conteúdo foi especificado no URL.");
-        }
-
-        const contentRef = doc(db, "contents", contentId);
-        const contentSnap = await getDoc(contentRef);
-
-        if (contentSnap.exists()) {
-            const content = contentSnap.data();
             contentTitleEl.textContent = content.title;
+            contentBodyEl.innerHTML = content.description;
 
-            // --- LÓGICA INTELIGENTE PARA SELECIONAR O TIPO DE MÍDIA ---
-            switch (content.mediaType) {
-                case 'video':
-                    // Se for um vídeo, cria um leitor de vídeo incorporado
-                    contentBodyEl.innerHTML = `
-                        <div class="video-container">
-                            <iframe 
-                                src="https://www.youtube.com/embed/${content.mediaUrl}" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-description"></div>
-                    `;
-                    // Também processa a descrição em Markdown abaixo do vídeo
-                    const converter = new showdown.Converter();
-                    const htmlDescription = converter.makeHtml(content.description || "");
-                    contentBodyEl.querySelector('.video-description').innerHTML = htmlDescription;
-                    break;
+            // --- NOVA LÓGICA DE PARTILHA ---
+            shareButton.style.display = 'inline-block'; // Torna o botão visível
 
-                // Futuramente, podemos adicionar: case 'pdf': ...
+            shareButton.addEventListener('click', async (e) => {
+                e.preventDefault(); // Impede a navegação para o href="#"
 
-                default:
-                    // Se for texto (ou não especificado), processa a descrição com Markdown
-                    const textConverter = new showdown.Converter();
-                    const htmlContent = textConverter.makeHtml(content.description || "Este conteúdo ainda não tem descrição.");
-                    contentBodyEl.innerHTML = htmlContent;
-                    break;
-            }
+                const shareData = {
+                    title: content.title,
+                    text: `Um artigo imperdível da NORAXY: "${content.title}"`,
+                    url: `https://noraxy.netlify.app/partilha-view.html?id=${contentId}`
+                };
+
+                try {
+                    // Tenta usar a API de partilha nativa
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                    } else {
+                        // Se não for suportada, copia para a área de transferência
+                        navigator.clipboard.writeText(shareData.url);
+                        alert("Link do artigo copiado para a sua área de transferência!");
+                    }
+                } catch (err) {
+                    console.error("Erro ao partilhar:", err);
+                }
+            });
 
         } else {
-            throw new Error("O conteúdo que você está a procurar não existe ou foi removido.");
+            contentContainer.innerHTML = "<h1>Artigo não encontrado</h1><p>Este conteúdo pode ter sido removido.</p>";
         }
     } catch (error) {
-        console.error("ERRO AO CARREGAR CONTEÚDO:", error);
-        contentTitleEl.textContent = "Erro ao Carregar";
-        contentBodyEl.innerHTML = `<p style="color: red; font-weight: bold;">Ocorreu um erro: ${error.message}</p>`;
+        console.error("Erro ao carregar o conteúdo:", error);
+        contentContainer.innerHTML = `<h1>Ocorreu um erro</h1><p>Não foi possível carregar o conteúdo. Tente novamente mais tarde.</p><pre>${error.message}</pre>`;
     }
 });

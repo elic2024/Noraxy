@@ -5,7 +5,7 @@ const {defineString} = require("firebase-functions/params");
 
 admin.initializeApp();
 
-// MÉTODO MODERNO E SEGURO: As chaves são definidas como parâmetros
+// FORÇANDO A ATUALIZAÇÃO DO DEPLOY - v1.2
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 
