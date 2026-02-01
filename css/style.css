@@ -78,24 +78,6 @@ body {
 .btn-secondary { background-color: var(--color-white); border: 2px solid var(--color-highlight); color: var(--color-highlight); }
 .btn-secondary:hover { background-color: var(--color-highlight); color: var(--color-white); transform: translateY(-2px); border-color: var(--color-highlight); }
 
-/* BOTÃO DE PARTILHA */
-.share-button-container { text-align: center; margin: 20px 0; }
-.btn-share {
-    display: inline-block;
-    text-decoration: none;
-    background-color: #25D366; /* Cor do WhatsApp */
-    color: var(--color-white);
-    padding: 10px 25px;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-.btn-share:hover {
-    background-color: #128C7E;
-    transform: scale(1.05);
-}
-.btn-share i { margin-right: 8px; }
-
 /* --- ESTILOS DE PÁGINAS DE FORMULÁRIO E ESTÁTICAS --- */
 .form-page-body { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.imgur.com/iZg0yu8.png'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; box-sizing: border-box; }
 .form-page-body .form-container, .form-page-body .static-page-container { background: rgba(17, 21, 25, 0.85); color: var(--color-white); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); max-width: 650px; width: 100%; padding: 40px; border-radius: 12px; }
@@ -118,11 +100,6 @@ body {
 .share-card-body { padding: 30px; }
 .share-card-body h3 { margin: 0 0 10px; color: var(--color-white); font-size: 1.6em; }
 .share-card-body p { color: rgba(255, 255, 255, 0.8); margin-bottom: 25px; }
-.share-instructions { padding: 30px; background-color: rgba(0, 0, 0, 0.2); }
-.share-link-container { display: flex; margin-top: 15px; }
-#share-link-input { flex-grow: 1; background-color: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); color: var(--color-white); padding: 12px; border-radius: 8px 0 0 8px; font-size: 0.9em; border-right: none; }
-#share-link-input:focus { outline: none; }
-#copy-link-button { width: 50px; padding: 0; border: 1px solid rgba(255, 255, 255, 0.2); border-left: none; border-radius: 0 8px 8px 0; background-color: var(--color-highlight); font-size: 1.2em; cursor: pointer; }
 
 /* --- CONTEÚDO --- */
 #logged-in-view { padding: 0; text-align: center; max-width: none; margin: 0 auto; }
@@ -144,19 +121,6 @@ body {
     border: 2px solid transparent;
 }
 
-/* ETIQUETA "NOVO" */
-.new-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background-color: #dc2626; /* VERMELHO FORTE */
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    z-index: 4;
-    box-shadow: 0 0 0 3px var(--color-white);
-}
-
 .content-card-pro { border-color: var(--color-highlight); }
 .content-card-pro::before { content: 'PRO'; position: absolute; top: 10px; right: -10px; background-color: var(--color-highlight); color: var(--color-white); padding: 2px 20px; font-size: 0.8em; font-weight: bold; transform: rotate(45deg); box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 3;}
 .content-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
@@ -164,14 +128,27 @@ body {
 .card-cover-image { width: 100%; height: 200px; object-fit: cover; }
 .card-body { padding: 20px; }
 .card-body h3 { margin: 0; font-size: 1.4em; }
-.card-interactions { padding: 10px 15px; border-top: 1px solid #eee; margin-top: auto; text-align: center; background-color: #fafafa; }
-.gift-button { padding: 8px 12px; margin: 5px 4px; cursor: pointer; border: 1px solid #ddd; background-color: var(--color-white); border-radius: 8px; font-family: var(--font-body); font-size: 0.9em; font-weight: bold; color: var(--color-dark); transition: all 0.3s ease; }
-.gift-button:hover { background-color: var(--color-highlight); color: var(--color-white); border-color: var(--color-highlight); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.subscribe-button-visual { display: block; background-color: var(--color-accent-red); color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin: 15px; cursor: pointer; border: none; font-size: 1em; width: calc(100% - 30px); transition: background-color 0.3s ease;}
-.subscribe-button-visual:hover { background-color: var(--color-accent-red-hover); }
+
 .coming-soon-message { text-align: center; font-style: italic; color: #888; font-size: 1em; margin: 20px 0 40px; }
 .back-button { text-decoration: none; color: #007bff; margin-bottom: 20px; display: inline-block; }
 #content-body img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* CONTAINER DE VÍDEO RESPONSIVO */
+.video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* Proporção 16:9 */
+    margin: 20px 0;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 
 /* --- RODAPÉ --- */
 .main-footer { background-color: var(--color-dark); color: var(--color-light-gray); padding: 40px 20px; text-align: center; }
